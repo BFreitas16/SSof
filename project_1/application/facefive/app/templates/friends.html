@@ -9,6 +9,7 @@
             <center>
                 <!-- form for search -->
                 <form class="form-horizontal" action="/friends" method="get">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <fieldset>
                         <legend>Search My Friends</legend>
                         <div class="form-group">
@@ -30,7 +31,7 @@
   {% for friend in friends %}
     <!-- friend -->
     <div class="row border border-dark rounded ml-1 mr-1" style="border-width:2px !important;">
-      <a class="ml-2 mr-2 mt-1 mb-1"><h4><img src = {{ photos_folder + friend.photo}} alt="" width="50" height="50">{{ friend.username }} : {{ friend.name }}</h4> {{ friend.about }}</a>
+      <a class="ml-2 mr-2 mt-1 mb-1"><h4><img src = "{{ photos_folder + friend.photo}}" alt="" width="50" height="50">{{ friend.username }} : {{ friend.name }}</h4> {{ friend.about }}</a>
     </div>
     {% if not loop.last %}
       <hr class="half-rule" color="grey" />

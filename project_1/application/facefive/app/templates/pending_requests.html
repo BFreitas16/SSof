@@ -20,9 +20,10 @@
   {% for tentative_friend in friends_pending %}
     <!-- request -->
     <div class="row border border-dark rounded ml-1 mr-1" style="border-width:2px !important;">
-      <a class="ml-2 mr-2 mt-1 mb-1"><h4><img src = {{ photos_folder + tentative_friend.photo}} alt="" width="50" height="50">{{ tentative_friend.username }} : {{ tentative_friend.name }}
+      <a class="ml-2 mr-2 mt-1 mb-1"><h4><img src = "{{ photos_folder + tentative_friend.photo}}" alt="" width="50" height="50">{{ tentative_friend.username }} : {{ tentative_friend.name }}
         <form class="form-horizontal" action="/pending_requests" method="post">
-          <input type="hidden" name="username" value= {{ tentative_friend.username }} /> 
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <input type="hidden" name="username" value= "{{ tentative_friend.username }}" /> 
           <button type="submit" class="btn btn-success">Accept this friend</button>
       </form></h4> 
       {{ tentative_friend.about }}</a>

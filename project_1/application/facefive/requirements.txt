@@ -1,3 +1,5 @@
 Flask
 flask_mysqldb
 werkzeug
+pysha3
+flask_wtf

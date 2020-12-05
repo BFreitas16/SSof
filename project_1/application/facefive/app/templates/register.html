@@ -8,6 +8,7 @@
         <div class="col-4">
             <center>
                 <form class="form-horizontal" action="register" method=post>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <fieldset>
                         <legend>Register new user</legend>
                         <div class="form-group">

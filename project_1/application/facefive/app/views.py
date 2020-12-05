@@ -1,6 +1,8 @@
 from flask import render_template, request, session, redirect, url_for, flash, make_response, escape
 from flask_mysqldb import MySQL
 import random, string
+import html
+import sha3
 
 from __init__ import app, mysql, current_user
 import model
@@ -59,8 +61,8 @@ def login():
    if request.method == 'GET':
       return render_template('login.html')
 
-   username = request.form['username']
-   password = request.form['password']
+   username = html.escape(request.form['username'])
+   password = hashPassword(html.escape(request.form['password']))
    logging.debug("login: Trying (%s, %s)" % (username, password))
 
    if username == "" or password == "":
@@ -94,8 +96,8 @@ def register():
    if request.method == 'GET':
       return render_template('register.html')
 
-   username = request.form['username']
-   password = request.form['password']
+   username = html.escape(request.form['username'])
+   password = hashPassword(html.escape(request.form['password']))
    logging.debug("register: Trying (%s, %s)" % (username, password))
 
    if username == "" or password == "":
@@ -167,11 +169,11 @@ def update_profile():
       flash("Profile updating has been disabled for user admin.", 'error')
       return render_template('profile.html', current_user=current_user)
 
-   new_name = request.form['name']
+   new_name = html.escape(request.form['name'])
    if not new_name:
       new_name = current_user.name
    
-   new_about = request.form['about']
+   new_about = html.escape(request.form['about'])
    if new_name == 'None':
       new_about = None
    
@@ -180,14 +182,15 @@ def update_profile():
       new_photo_filename = current_user.photo
    else:
       new_photo_filename = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8)) + '_' + new_photo.filename
+      new_photo_filename = html.escape(new_photo_filename)
       new_photo.save(app.config['photos_folder'] + new_photo_filename)
 
       logging.debug("update_profile: filename (%s)" % new_photo_filename)
       logging.debug("update_profile: file (%s)" % new_photo)
    
-   current_password = request.form['currentpassword']
+   current_password = hashPassword(html.escape(request.form['currentpassword']))
    
-   new_password = request.form['newpassword']
+   new_password = hashPassword(html.escape(request.form['newpassword']))
    if not new_password:
       new_password = current_password
 
@@ -221,8 +224,8 @@ def create_post():
    if request.method == 'GET':
       return render_template('create_post.html', current_user=current_user)
 
-   new_content = request.form['content']
-   type = request.form['type']
+   new_content = html.escape(request.form['content'])
+   type = html.escape(request.form['type'])
 
    logging.debug("create_post: Trying (%s, %s, %s)" % (username, new_content, type))
 
@@ -265,9 +268,9 @@ def edit_post():
          return error(e)
       return render_template('edit_post.html', current_user=current_user, post=post)
 
-   new_content = request.form['content']
-   new_type = request.form['type']
-   post_id = request.form['id']
+   new_content = html.escape(request.form['content'])
+   new_type = html.escape(request.form['type'])
+   post_id = html.escape(request.form['id'])
 
    logging.debug("edit_post: Trying (%s, %s)" % (new_content, new_type))
 
@@ -303,7 +306,7 @@ def request_friend():
    if request.method == 'GET':
       return render_template('request_friend.html', current_user=current_user)
 
-   new_friend = request.form['username']
+   new_friend = html.escape(request.form['username'])
    logging.debug("request_friend: Trying (%s, %s)" % (username, new_friend))
 
    ### missing handling exception
@@ -353,7 +356,7 @@ def pending_requests():
    if request.method == 'GET':
       return render_template('pending_requests.html', current_user=current_user, friends_pending=friends_pending)
 
-   accept_friend = request.form['username']
+   accept_friend = html.escape(request.form['username'])
 
    if not accept_friend or not model.is_request_pending(accept_friend, username):
       flash("Introduce an existing friend request.", 'error')
@@ -395,3 +398,13 @@ def friends():
       return error(e)
 
    return render_template('friends.html', current_user=current_user, friends=friends)
+
+#def hashPassword(password):
+#   m = hashlib.sha256()
+#   m.update(password.encode("utf-8"))
+#   return m.digest().decode("utf-8", "ignore")
+
+
+def hashPassword(password):
+   return '' if password == '' else sha3.sha3_224(password.encode('utf-8')).hexdigest()
+    

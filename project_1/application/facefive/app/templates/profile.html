@@ -11,8 +11,9 @@
         </div>
         <div class="col-6 bg-secondary">
             <form class="mb-3" action="/update_profile" method="post" enctype = "multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <fieldset class="mt-2">
-                    <legend> Edit Profile   <img src = {{ photos_folder + current_user.photo}} alt="" width="50" height="50"></legend>
+                    <legend> Edit Profile   <img src = "{{ photos_folder + current_user.photo}}" alt="" width="50" height="50"></legend>
                     <hr class="half-rule" color="grey" />
                     <div class="form-group">
                         <label for="nameInput">Username (readonly)</label>
