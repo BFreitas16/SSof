@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Post{% endblock %}
+
+<h1 class="text-success text-center">Update</h1>
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+        </div>
+        <div class="col-6 bg-secondary">
+            <form class="mb-3" action="/create_post" method="post">
+              <fieldset>
+                <legend>Insert the Content for your post</legend>
+                <hr class="half-rule" color="grey" />
+                <div class="form-group">
+                  <label for="contentArea">Content.</label>
+                  <textarea class="form-control" name="content" id="contentArea" rows="10" placeholder=""></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="Type">Type.</label>
+                  <select id="type" name="type">
+                    <option value="Public" selected>Public</option>
+                    <option value="Friends">Friends</option>
+                    <option value="Private">Private</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Post</button>
+              </fieldset>
+            </form>
+        </div>
+        <div class="col-3">
+        </div>
+    </div>
+</div>
+{% endblock %}

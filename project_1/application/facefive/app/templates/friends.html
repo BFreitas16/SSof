@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}My Friends{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <center>
+                <!-- form for search -->
+                <form class="form-horizontal" action="/friends" method="get">
+                    <fieldset>
+                        <legend>Search My Friends</legend>
+                        <div class="form-group">
+                            <input type="text" id="search" name="search" class="input-xlarge" placeholder="search">
+                        </div>
+                        <button type="submit" class="btn btn-success">Search within my friends</button>
+                </form>
+            </center>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <i>Found {{ friends|length }} friends in the search</i><br><br>
+</div>
+
+
+
+  {% autoescape false %}
+  <!-- Friend  -->
+  {% for friend in friends %}
+    <!-- friend -->
+    <div class="row border border-dark rounded ml-1 mr-1" style="border-width:2px !important;">
+      <a class="ml-2 mr-2 mt-1 mb-1"><h4><img src = {{ photos_folder + friend.photo}} alt="" width="50" height="50">{{ friend.username }} : {{ friend.name }}</h4> {{ friend.about }}</a>
+    </div>
+    {% if not loop.last %}
+      <hr class="half-rule" color="grey" />
+    {% endif %}
+  {% endfor %}
+  {% endautoescape %}
+{% endblock %}

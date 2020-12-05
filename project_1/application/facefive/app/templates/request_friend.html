@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Request Friend{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <center>
+                <form class="form-horizontal" action="/request_friend" method=post>
+                    <fieldset>
+                        <legend>Add Friend</legend>
+                        <div class="form-group">
+                            <input type="text" id="username" name="username" class="input-xlarge" placeholder="Username" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Send Request</button>
+                </form>
+            </center>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Post{% endblock %}
+
+<h1 class="text-success text-center">Update</h1>
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+        </div>
+        <div class="col-6 bg-secondary">
+            <form class="mb-3" action="/edit_post" method="post">
+              <fieldset>
+                <legend>Edit the Content for your post</legend>
+                <hr class="half-rule" color="grey" />
+                <input type="hidden" name="id" value= {{ post.id }} /> 
+                <div class="form-group">
+                  <label for="contentArea">Content.</label>
+                  <textarea class="form-control" name="content" id="contentArea" rows="10">{{ post.content }}</textarea>
+                </div>
+                <div class="form-group">
+                  <label for="Type">Type.</label>
+                  <select id="type" name="type">
+                    <option value="Public" {% if post.type == "Public" %}selected{% endif %}>Public</option>
+                    <option value="Friends" {% if post.type == "Friends" %}selected{% endif %}>Friends</option>
+                    <option value="Private" {% if post.type == "Private" %}selected{% endif %}>Private</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Post</button>
+              </fieldset>
+            </form>
+        </div>
+        <div class="col-3">
+        </div>
+    </div>
+</div>
+{% endblock %}

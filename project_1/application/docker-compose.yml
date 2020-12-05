@@ -1,0 +1,20 @@
+version: "3.2"
+services:
+  app:
+    build: ./facefive
+    depends_on:
+      - db
+    ports:
+      - 5000:5000
+    restart: always
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_USER: 'facefive'
+      MYSQL_PASSWORD: 'facefivepass'
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+    restart: always
+  

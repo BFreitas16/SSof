@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+<h2 class="text-center"></h1>{% block title %}Welcome{% endblock %}</h2>
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <h3><center>
+                Welcome 
+            {% if current_user.name %}
+                {{ current_user.name }}
+            {% else %}
+                {{ current_user.username }}
+            {% endif %}
+            </center></h3>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+
+<hr class="half-rule" color="white"/>
+
+<!-- posts -->
+{% autoescape false %}
+{% for post in posts %}
+  <!-- post -->
+  <div class="row border border-dark rounded ml-1 mr-1" style="border-width:2px !important;">
+                <a class="ml-2 mr-2 mt-1 mb-1"><h4><img src = {{ photos_folder + post.photo}} alt="" width="50" height="50">{{ post.author }} : {{ post.name }} 
+                    {% if post.author == current_user.username %}
+                    <form class="form-horizontal" action="/edit_post" method="get">
+                        <input type="hidden" name="id" value= {{ post.id }} /> 
+                        <button type="submit" class="btn btn-success">Edit this post</button>
+                    </form>
+                    {% endif %}
+                </h4>
+      {{ post.content }}.   ({{ post.type }})</a>
+  </div>
+  {% if not loop.last %}
+    <hr class="half-rule" color="grey" />
+  {% endif %}
+{% endfor %}
+{% endautoescape %}
+
+{% endblock %}

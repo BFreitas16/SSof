@@ -1,0 +1,46 @@
+<!doctype html>
+<title>{% block title %}{% endblock %}FaceFive</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">FaceFive</a>
+
+    <!-- Makes the rest align right -->
+    <p class="mr-auto"></p>
+
+    <ul class="navbar-nav">
+        {% if not current_user %}
+            <li><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+            <li><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
+        {% else %}
+            <!--li><a class="nav-link" href="{{ url_for('login') }}">Login</a></li-->
+            <li><a class="nav-link" href="{{ url_for('friends') }}">My Friends</a></li>
+            <li><a class="nav-link" href="{{ url_for('pending_requests') }}">Pending Requests</a></li>
+            <li><a class="nav-link" href="{{ url_for('request_friend') }}">Add a Friend</a></li>
+            <li><a class="nav-link" href="{{ url_for('create_post') }}">New Post</a></li>
+            {% if current_user.name %}
+                <li><a class="nav-link" href="{{ url_for('profile') }}"> Profile ({{ current_user.name }})</a></li>
+            {% else %}
+                <li><a class="nav-link" href="{{ url_for('profile') }}"> Profile ({{ current_user.username }})</a></li>
+            {% endif %}
+            <li><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <center>
+                {% for message in get_flashed_messages() %}
+                  <div class="flash mb-2">{{ message }}</div>
+                {% endfor %}
+                <hr class="half-rule" color="grey" />
+            </center>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+{% block content %}{% endblock %}
