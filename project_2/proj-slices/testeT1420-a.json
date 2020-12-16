@@ -1,0 +1,43 @@
+{
+  "type": "Program",
+  "body": [
+    {
+      "type": "ExpressionStatement",
+      "expression": {
+        "type": "AssignmentExpression",
+        "operator": "=",
+        "left": {
+          "type": "Identifier",
+          "name": "a"
+        },
+        "right": {
+          "type": "ConditionalExpression",
+          "test": {
+            "type": "BinaryExpression",
+            "operator": "==",
+            "left": {
+              "type": "Identifier",
+              "name": "i"
+            },
+            "right": {
+              "type": "Literal",
+              "value": 0,
+              "raw": "0"
+            }
+          },
+          "consequent": {
+            "type": "Identifier",
+            "name": "b"
+          },
+          "alternate": {
+            "type": "Literal",
+            "value": "",
+            "raw": "\"\""
+          }
+        }
+      }
+    }
+  ],
+  "sourceType": "script"
+}
+

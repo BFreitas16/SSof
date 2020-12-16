@@ -1,0 +1,14 @@
+[
+    {
+        "vulnerability": "vuln1",
+        "sources": ["b"],
+        "sanitizers":[""],
+        "sinks": ["s"]
+    },
+    {
+        "vulnerability": "vuln1",
+        "sources": ["a"],
+        "sanitizers":[""],
+        "sinks": ["x"]
+    }
+]

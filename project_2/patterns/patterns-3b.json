@@ -1,0 +1,8 @@
+[
+    {
+        "vulnerability": "vuln1",
+        "sources": ["username"],
+        "sanitizers":[""],
+        "sinks": ["z"]
+    }
+]

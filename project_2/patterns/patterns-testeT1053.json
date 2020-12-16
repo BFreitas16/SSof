@@ -1,0 +1,19 @@
+[
+  {
+    "vulnerability": "Source Input",
+    "sources": [
+      "readline",
+      "readbyte",
+      "document.URL"
+    ],
+    "sanitizers": [
+      "encodeURI",
+      "escape"
+    ],
+    "sinks": [
+      "exec",
+      "document.write",
+      "document.innerHTML"
+    ]
+  }
+]
